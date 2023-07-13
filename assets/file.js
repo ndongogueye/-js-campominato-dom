@@ -5,6 +5,9 @@ document.getElementById("generaGrigliaBtn").addEventListener("click", function()
 
     let righe = 10;
     let colonne = 10;
+    let bombe = [];
+    let punteggio = 0;
+    let gameOver = false;
 
     for (let i = 1; i <= righe; i++) {
       for (let j = 1; j <= colonne; j++) {
@@ -20,5 +23,23 @@ document.getElementById("generaGrigliaBtn").addEventListener("click", function()
         grigliaDiv.appendChild(cella);
       }
       grigliaDiv.appendChild(document.createElement("br"));
+    }
+  });
+
+  cella.addEventListener("click", function() {
+    if (!gameOver) {
+      let numeroCella = parseInt(this.innerText);
+      if (bombe.includes(numeroCella)) {
+        this.style.backgroundColor = "red";
+        gameOver = true;
+        console.log("Hai calpestato una bomba Partita finita. Punteggio: " + punteggio);
+      } else {
+        this.style.backgroundColor = "blue";
+        punteggio++;
+        if (punteggio === numeroCelle - numeroBombe) {
+          gameOver = true;
+          console.log("Hai trovato tutte le celle senza bomba partita terminata. Punteggio: " + punteggio);
+        }
+      }
     }
   });
